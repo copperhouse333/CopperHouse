@@ -14,8 +14,6 @@
 
 <link rel="stylesheet" href="style.css">
 
-
-
 </head>
 
 
@@ -122,13 +120,33 @@
         </select>
 
 
+        <!-- =================================================
+             FOTO
+        ================================================== -->
+
+        <label for="fotoProducto">
+            📷 Foto del producto:
+        </label>
+
+        <input
+            id="fotoProducto"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            onchange="previsualizarFoto(event)"
+        >
+
+
+        <div id="vistaPreviaFoto"></div>
+
+
         <!-- GUARDAR -->
 
         <button
             class="btn-guardar"
             onclick="agregarProducto()"
         >
-            Guardar Producto
+            💾 Guardar Producto
         </button>
 
 
@@ -159,6 +177,10 @@
                 <thead>
 
                     <tr>
+
+                        <th>
+                            Foto
+                        </th>
 
                         <th>
                             Producto
@@ -229,6 +251,10 @@
                     <tr>
 
                         <th>
+                            Foto
+                        </th>
+
+                        <th>
                             Producto
                         </th>
 
@@ -281,9 +307,7 @@
         </div>
 
 
-        <!-- =================================================
-             ESTADO DE PAGO
-        ================================================== -->
+        <!-- ESTADO DE PAGO -->
 
         <label for="estadoPago">
             Estado de pago:
@@ -303,9 +327,7 @@
         </select>
 
 
-        <!-- =================================================
-             FORMA DE PAGO
-        ================================================== -->
+        <!-- FORMA DE PAGO -->
 
         <div
             id="contenedorFormaPago"
@@ -342,7 +364,7 @@
             class="btn-finalizar"
             onclick="finalizarVenta()"
         >
-            Finalizar Venta
+            💰 Finalizar Venta
         </button>
 
     </div>
@@ -378,8 +400,6 @@
     >
 
 
-    <!-- BUSCAR -->
-
     <button
         class="btn-reporte"
         onclick="mostrarPendientes()"
@@ -388,12 +408,8 @@
     </button>
 
 
-    <!-- RESUMEN -->
-
     <div id="resumenPendientes"></div>
 
-
-    <!-- TABLA PENDIENTES -->
 
     <div class="table-container">
 
@@ -469,14 +485,8 @@
     </h2>
 
 
-    <!-- =================================================
-         FILTROS
-    ================================================== -->
-
     <div class="filtros">
 
-
-        <!-- DESDE -->
 
         <div>
 
@@ -493,8 +503,6 @@
         </div>
 
 
-        <!-- HASTA -->
-
         <div>
 
             <label for="fechaHasta">
@@ -509,8 +517,6 @@
 
         </div>
 
-
-        <!-- PROPIETARIO -->
 
         <div>
 
@@ -556,8 +562,6 @@
         </div>
 
 
-        <!-- PRODUCTO -->
-
         <div>
 
             <label for="productoReporte">
@@ -573,8 +577,6 @@
 
         </div>
 
-
-        <!-- FORMA DE PAGO -->
 
         <div>
 
@@ -613,8 +615,6 @@
     <br>
 
 
-    <!-- BOTONES -->
-
     <button
         class="btn-reporte"
         onclick="mostrarReporte()"
@@ -631,13 +631,9 @@
     </button>
 
 
-
-    <!-- =================================================
-         RESUMEN
-    ================================================== -->
+    <!-- RESUMEN -->
 
     <div class="resumen">
-
 
         <div>
 
@@ -703,12 +699,9 @@
 
 
 
-    <!-- =================================================
-         RESUMEN DE PAGOS
-    ================================================== -->
+    <!-- RESUMEN PAGOS -->
 
     <div class="resumen-pagos">
-
 
         <div class="pago-card efectivo">
 
@@ -738,10 +731,6 @@
     </div>
 
 
-
-    <!-- =================================================
-         DETALLE DE VENTAS
-    ================================================== -->
 
     <h3>
         Productos vendidos
@@ -809,10 +798,6 @@
 
 
 
-    <!-- =================================================
-         RESUMEN POR PROPIETARIO
-    ================================================== -->
-
     <h3>
         Resumen por propietario
     </h3>
@@ -862,10 +847,6 @@
     </div>
 
 
-
-    <!-- =================================================
-         RESUMEN POR PRODUCTO
-    ================================================== -->
 
     <h3>
         Resumen por producto
@@ -923,9 +904,9 @@
 
 
 
-<!-- ===================================================== -->
-<!-- FIREBASE -->
-<!-- ===================================================== -->
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
 
 <script type="module">
 
@@ -960,9 +941,9 @@ from
 
 
 
-/* ===================================================== */
-/* CONFIGURACIÓN */
-/* ===================================================== */
+/* =====================================================
+   CONFIGURACIÓN FIREBASE
+===================================================== */
 
 const firebaseConfig = {
 
@@ -990,11 +971,8 @@ const firebaseConfig = {
 };
 
 
-
 const app =
-    initializeApp(
-        firebaseConfig
-    );
+    initializeApp(firebaseConfig);
 
 
 const db =
@@ -1002,15 +980,17 @@ const db =
 
 
 
-/* ===================================================== */
-/* VARIABLES */
-/* ===================================================== */
+/* =====================================================
+   VARIABLES
+===================================================== */
 
 let productos = [];
 
 let venta = [];
 
 let historialVentas = [];
+
+let fotoProductoBase64 = "";
 
 
 
@@ -1029,13 +1009,13 @@ const ventasRef =
 
 
 
-/* ===================================================== */
-/* ESTADO FIREBASE */
-/* ===================================================== */
+/* =====================================================
+   ESTADO FIREBASE
+===================================================== */
 
 function mostrarEstado(
     mensaje,
-    tipo=""
+    tipo = ""
 ){
 
     const estado =
@@ -1056,9 +1036,349 @@ function mostrarEstado(
 
 
 
-/* ===================================================== */
-/* CARGAR DATOS */
-/* ===================================================== */
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHTML(valor){
+
+    return String(
+        valor ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =====================================================
+   COMPRIMIR FOTO
+===================================================== */
+
+function comprimirImagen(
+    archivo
+){
+
+    return new Promise(
+        function(resolve,reject){
+
+            const lector =
+                new FileReader();
+
+
+            lector.onload =
+            function(e){
+
+                const imagen =
+                    new Image();
+
+
+                imagen.onload =
+                function(){
+
+                    const MAX_ANCHO =
+                        700;
+
+                    const MAX_ALTO =
+                        700;
+
+
+                    let ancho =
+                        imagen.width;
+
+                    let alto =
+                        imagen.height;
+
+
+
+                    /* =================================
+                       REDUCIR ANCHO
+                    ================================= */
+
+                    if(
+                        ancho >
+                        MAX_ANCHO
+                    ){
+
+                        alto =
+                            alto *
+                            (
+                                MAX_ANCHO /
+                                ancho
+                            );
+
+                        ancho =
+                            MAX_ANCHO;
+
+                    }
+
+
+
+                    /* =================================
+                       REDUCIR ALTO
+                    ================================= */
+
+                    if(
+                        alto >
+                        MAX_ALTO
+                    ){
+
+                        ancho =
+                            ancho *
+                            (
+                                MAX_ALTO /
+                                alto
+                            );
+
+                        alto =
+                            MAX_ALTO;
+
+                    }
+
+
+
+                    const canvas =
+                        document.createElement(
+                            "canvas"
+                        );
+
+
+                    canvas.width =
+                        Math.round(
+                            ancho
+                        );
+
+
+                    canvas.height =
+                        Math.round(
+                            alto
+                        );
+
+
+                    const contexto =
+                        canvas.getContext(
+                            "2d"
+                        );
+
+
+                    contexto.drawImage(
+                        imagen,
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
+
+
+
+                    const base64 =
+                        canvas.toDataURL(
+                            "image/jpeg",
+                            0.60
+                        );
+
+
+                    resolve(
+                        base64
+                    );
+
+                };
+
+
+                imagen.onerror =
+                function(){
+
+                    reject(
+                        new Error(
+                            "No se pudo cargar la imagen"
+                        )
+                    );
+
+                };
+
+
+                imagen.src =
+                    e.target.result;
+
+            };
+
+
+            lector.onerror =
+            function(){
+
+                reject(
+                    new Error(
+                        "No se pudo leer la imagen"
+                    )
+                );
+
+            };
+
+
+            lector.readAsDataURL(
+                archivo
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   TOMAR / SELECCIONAR FOTO
+===================================================== */
+
+window.previsualizarFoto =
+async function(event){
+
+    const archivo =
+        event.target.files[0];
+
+
+    if(!archivo){
+
+        return;
+
+    }
+
+
+    if(
+        !archivo.type.startsWith(
+            "image/"
+        )
+    ){
+
+        alert(
+            "Selecciona una imagen válida"
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        mostrarEstado(
+            "🖼️ Comprimiendo fotografía..."
+        );
+
+
+        fotoProductoBase64 =
+            await comprimirImagen(
+                archivo
+            );
+
+
+        document.getElementById(
+            "vistaPreviaFoto"
+        ).innerHTML = `
+
+            <div class="foto-preview-container">
+
+                <img
+                    src="${fotoProductoBase64}"
+                    class="foto-preview"
+                    alt="Vista previa"
+                >
+
+                <button
+                    type="button"
+                    class="btn-quitar-foto"
+                    onclick="quitarFotoProducto()"
+                >
+                    ❌ Quitar foto
+                </button>
+
+            </div>
+
+        `;
+
+
+        mostrarEstado(
+            "📷 Foto lista para guardar",
+            "ok"
+        );
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+
+        fotoProductoBase64 =
+            "";
+
+
+        alert(
+            "No se pudo procesar la fotografía"
+        );
+
+    }
+
+};
+
+
+
+/* =====================================================
+   QUITAR FOTO
+===================================================== */
+
+window.quitarFotoProducto =
+function(){
+
+    fotoProductoBase64 =
+        "";
+
+
+    const input =
+        document.getElementById(
+            "fotoProducto"
+        );
+
+
+    if(input){
+
+        input.value =
+            "";
+
+    }
+
+
+    document.getElementById(
+        "vistaPreviaFoto"
+    ).innerHTML =
+        "";
+
+};
+
+
+
+/* =====================================================
+   CARGAR DATOS
+===================================================== */
 
 async function cargarDatos(){
 
@@ -1155,20 +1475,20 @@ async function cargarDatos(){
 
 
 
-/* ===================================================== */
-/* AGREGAR PRODUCTO */
-/* ===================================================== */
+/* =====================================================
+   AGREGAR PRODUCTO
+===================================================== */
 
 window.agregarProducto =
 async function(){
 
-    let nombre =
+    const nombre =
         document.getElementById(
             "nombre"
         ).value.trim();
 
 
-    let cantidad =
+    const cantidad =
         parseInt(
             document.getElementById(
                 "cantidad"
@@ -1176,7 +1496,7 @@ async function(){
         );
 
 
-    let precio =
+    const precio =
         parseFloat(
             document.getElementById(
                 "precio"
@@ -1184,7 +1504,7 @@ async function(){
         );
 
 
-    let propietario =
+    const propietario =
         document.getElementById(
             "propietario"
         ).value;
@@ -1225,7 +1545,34 @@ async function(){
     }
 
 
+
+    /*
+     * Verificar tamaño aproximado
+     */
+
+    if(
+        fotoProductoBase64 &&
+        fotoProductoBase64.length >
+        950000
+    ){
+
+        alert(
+            "La fotografía sigue siendo demasiado grande. " +
+            "Toma una fotografía con menor resolución."
+        );
+
+        return;
+
+    }
+
+
+
     try{
+
+        mostrarEstado(
+            "☁️ Guardando producto..."
+        );
+
 
         const documento =
             await addDoc(
@@ -1243,6 +1590,9 @@ async function(){
 
                     propietario:
                         propietario,
+
+                    foto:
+                        fotoProductoBase64 || "",
 
                     creado:
                         new Date().toISOString()
@@ -1266,7 +1616,10 @@ async function(){
                 precio,
 
             propietario:
-                propietario
+                propietario,
+
+            foto:
+                fotoProductoBase64 || ""
 
         });
 
@@ -1274,24 +1627,49 @@ async function(){
         mostrarProductos();
 
 
+
+        /*
+         * Limpiar formulario
+         */
+
         document.getElementById(
             "nombre"
-        ).value = "";
+        ).value =
+            "";
 
 
         document.getElementById(
             "cantidad"
-        ).value = "";
+        ).value =
+            "";
 
 
         document.getElementById(
             "precio"
-        ).value = "";
+        ).value =
+            "";
 
 
         document.getElementById(
             "propietario"
-        ).value = "";
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "fotoProducto"
+        ).value =
+            "";
+
+
+        document.getElementById(
+            "vistaPreviaFoto"
+        ).innerHTML =
+            "";
+
+
+        fotoProductoBase64 =
+            "";
 
 
         mostrarEstado(
@@ -1305,6 +1683,13 @@ async function(){
 
         console.error(error);
 
+
+        mostrarEstado(
+            "❌ Error guardando producto",
+            "error"
+        );
+
+
         alert(
             "Error guardando producto:\n\n" +
             error.message
@@ -1316,9 +1701,9 @@ async function(){
 
 
 
-/* ===================================================== */
-/* MOSTRAR PRODUCTOS */
-/* ===================================================== */
+/* =====================================================
+   MOSTRAR PRODUCTOS
+===================================================== */
 
 window.mostrarProductos =
 function(){
@@ -1332,7 +1717,8 @@ function(){
     const buscar =
         document.getElementById(
             "buscar"
-        ).value.toLowerCase();
+        ).value
+        .toLowerCase();
 
 
     let html = "";
@@ -1341,38 +1727,77 @@ function(){
     productos.forEach(
         function(p){
 
+            const nombre =
+                String(
+                    p.nombre || ""
+                );
+
+
+            const propietario =
+                String(
+                    p.propietario || ""
+                );
+
+
             if(
 
-                p.nombre
+                nombre
                 .toLowerCase()
                 .includes(buscar)
 
                 ||
 
-                p.propietario
+                propietario
                 .toLowerCase()
                 .includes(buscar)
 
             ){
+
+                const fotoHTML =
+                    p.foto
+
+                    ?
+
+                    `
+                    <img
+                        src="${p.foto}"
+                        class="foto-producto"
+                        alt="${escaparHTML(p.nombre)}"
+                    >
+                    `
+
+                    :
+
+                    `
+                    <div class="sin-foto">
+                        📷
+                    </div>
+                    `;
+
+
 
                 html += `
 
                 <tr>
 
                     <td>
-                        ${p.nombre}
+                        ${fotoHTML}
                     </td>
 
                     <td>
-                        ${p.propietario}
+                        ${escaparHTML(p.nombre)}
                     </td>
 
                     <td>
-                        ${p.cantidad}
+                        ${escaparHTML(p.propietario)}
                     </td>
 
                     <td>
-                        $${Number(p.precio).toFixed(2)}
+                        ${Number(p.cantidad || 0)}
+                    </td>
+
+                    <td>
+                        $${Number(p.precio || 0).toFixed(2)}
                     </td>
 
                     <td>
@@ -1381,21 +1806,23 @@ function(){
                             class="btn-agregar"
                             onclick="agregarCarrito('${p.id}')"
                         >
-                            Agregar
+                            🛒 Agregar
                         </button>
+
 
                         <button
                             class="btn-editar"
                             onclick="editarProducto('${p.id}')"
                         >
-                            Editar
+                            ✏️ Editar
                         </button>
+
 
                         <button
                             class="btn-eliminar"
                             onclick="eliminarProducto('${p.id}')"
                         >
-                            Eliminar
+                            🗑️ Eliminar
                         </button>
 
                     </td>
@@ -1416,7 +1843,7 @@ function(){
 
         <tr>
 
-            <td colspan="5">
+            <td colspan="6">
                 No hay productos guardados
             </td>
 
@@ -1434,9 +1861,9 @@ function(){
 
 
 
-/* ===================================================== */
-/* EDITAR PRODUCTO */
-/* ===================================================== */
+/* =====================================================
+   EDITAR PRODUCTO
+===================================================== */
 
 window.editarProducto =
 async function(id){
@@ -1451,7 +1878,8 @@ async function(id){
         return;
 
 
-    let nombre =
+
+    const nombre =
         prompt(
             "Nombre:",
             producto.nombre
@@ -1462,29 +1890,32 @@ async function(id){
         return;
 
 
-    let cantidad =
+
+    const cantidadTexto =
         prompt(
             "Cantidad:",
             producto.cantidad
         );
 
 
-    if(cantidad === null)
+    if(cantidadTexto === null)
         return;
 
 
-    let precio =
+
+    const precioTexto =
         prompt(
             "Precio:",
             producto.precio
         );
 
 
-    if(precio === null)
+    if(precioTexto === null)
         return;
 
 
-    let propietario =
+
+    const propietario =
         prompt(
             "Propietario:",
             producto.propietario
@@ -1495,12 +1926,17 @@ async function(id){
         return;
 
 
-    cantidad =
-        parseInt(cantidad);
+
+    const cantidad =
+        parseInt(
+            cantidadTexto
+        );
 
 
-    precio =
-        parseFloat(precio);
+    const precio =
+        parseFloat(
+            precioTexto
+        );
 
 
     if(
@@ -1519,11 +1955,103 @@ async function(id){
 
     ){
 
-        alert("Datos inválidos");
+        alert(
+            "Datos inválidos"
+        );
 
         return;
 
     }
+
+
+
+    /*
+     * Preguntar si desea cambiar foto
+     */
+
+    let nuevaFoto =
+        producto.foto || "";
+
+
+    const cambiarFoto =
+        confirm(
+            "¿Quieres cambiar la foto del producto?"
+        );
+
+
+    if(cambiarFoto){
+
+        const input =
+            document.createElement(
+                "input"
+            );
+
+
+        input.type =
+            "file";
+
+
+        input.accept =
+            "image/*";
+
+
+        input.capture =
+            "environment";
+
+
+        const seleccion =
+            await seleccionarImagen(
+                input
+            );
+
+
+        if(seleccion){
+
+            try{
+
+                nuevaFoto =
+                    await comprimirImagen(
+                        seleccion
+                    );
+
+            }
+
+            catch(error){
+
+                alert(
+                    "No se pudo procesar la nueva foto"
+                );
+
+                return;
+
+            }
+
+        }
+
+    }
+
+
+
+    /*
+     * Quitar foto
+     */
+
+    if(
+        producto.foto &&
+        confirm(
+            "¿Quieres quitar la fotografía actual?"
+        )
+    ){
+
+        if(!cambiarFoto){
+
+            nuevaFoto =
+                "";
+
+        }
+
+    }
+
 
 
     try{
@@ -1548,7 +2076,10 @@ async function(id){
                     precio,
 
                 propietario:
-                    propietario.trim()
+                    propietario.trim(),
+
+                foto:
+                    nuevaFoto
 
             }
 
@@ -1571,11 +2102,24 @@ async function(id){
             propietario.trim();
 
 
+        producto.foto =
+            nuevaFoto;
+
+
         mostrarProductos();
+
+
+        mostrarEstado(
+            "☁️ Producto actualizado",
+            "ok"
+        );
 
     }
 
     catch(error){
+
+        console.error(error);
+
 
         alert(
             "Error actualizando producto:\n\n" +
@@ -1588,9 +2132,39 @@ async function(id){
 
 
 
-/* ===================================================== */
-/* ELIMINAR PRODUCTO */
-/* ===================================================== */
+/* =====================================================
+   SELECCIONAR IMAGEN
+===================================================== */
+
+function seleccionarImagen(
+    input
+){
+
+    return new Promise(
+        function(resolve){
+
+            input.onchange =
+            function(){
+
+                resolve(
+                    input.files[0] || null
+                );
+
+            };
+
+
+            input.click();
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ELIMINAR PRODUCTO
+===================================================== */
 
 window.eliminarProducto =
 async function(id){
@@ -1636,6 +2210,12 @@ async function(id){
 
         mostrarProductos();
 
+
+        mostrarEstado(
+            "☁️ Producto eliminado",
+            "ok"
+        );
+
     }
 
     catch(error){
@@ -1651,9 +2231,9 @@ async function(id){
 
 
 
-/* ===================================================== */
-/* AGREGAR AL CARRITO */
-/* ===================================================== */
+/* =====================================================
+   AGREGAR AL CARRITO
+===================================================== */
 
 window.agregarCarrito =
 function(id){
@@ -1717,6 +2297,9 @@ function(id){
             nombre:
                 producto.nombre,
 
+            foto:
+                producto.foto || "",
+
             precioOriginal:
                 Number(producto.precio),
 
@@ -1743,9 +2326,9 @@ function(id){
 
 
 
-/* ===================================================== */
-/* MOSTRAR CARRITO */
-/* ===================================================== */
+/* =====================================================
+   MOSTRAR CARRITO
+===================================================== */
 
 window.mostrarCarrito =
 function(){
@@ -1763,7 +2346,32 @@ function(){
                 Number(v.cantidad);
 
 
-            total += subtotal;
+            total +=
+                subtotal;
+
+
+
+            const fotoHTML =
+                v.foto
+
+                ?
+
+                `
+                <img
+                    src="${v.foto}"
+                    class="foto-carrito"
+                    alt="${escaparHTML(v.nombre)}"
+                >
+                `
+
+                :
+
+                `
+                <div class="sin-foto">
+                    📷
+                </div>
+                `;
+
 
 
             html += `
@@ -1771,12 +2379,19 @@ function(){
             <tr>
 
                 <td>
-                    ${v.nombre}
+                    ${fotoHTML}
                 </td>
 
+
                 <td>
-                    ${v.propietario}
+                    ${escaparHTML(v.nombre)}
                 </td>
+
+
+                <td>
+                    ${escaparHTML(v.propietario)}
+                </td>
+
 
                 <td>
 
@@ -1784,7 +2399,7 @@ function(){
                         type="number"
                         min="1"
                         value="${v.cantidad}"
-                        style="width:60px"
+                        class="cantidad-input"
                         onchange="
                             cambiarCantidad(
                                 '${v.id}',
@@ -1841,7 +2456,7 @@ function(){
                             quitarCarrito('${v.id}')
                         "
                     >
-                        X
+                        ❌
                     </button>
 
                 </td>
@@ -1860,7 +2475,7 @@ function(){
 
         <tr>
 
-            <td colspan="7">
+            <td colspan="8">
                 No hay productos en la venta
             </td>
 
@@ -1886,9 +2501,9 @@ function(){
 
 
 
-/* ===================================================== */
-/* CAMBIAR PRECIO DE VENTA */
-/* ===================================================== */
+/* =====================================================
+   CAMBIAR PRECIO
+===================================================== */
 
 window.cambiarPrecioVenta =
 function(
@@ -1907,7 +2522,9 @@ function(
 
 
     nuevoPrecio =
-        parseFloat(nuevoPrecio);
+        parseFloat(
+            nuevoPrecio
+        );
 
 
     if(
@@ -1944,9 +2561,9 @@ function(
 
 
 
-/* ===================================================== */
-/* CAMBIAR CANTIDAD */
-/* ===================================================== */
+/* =====================================================
+   CAMBIAR CANTIDAD
+===================================================== */
 
 window.cambiarCantidad =
 function(
@@ -1967,7 +2584,9 @@ function(
 
 
     cantidad =
-        parseInt(cantidad);
+        parseInt(
+            cantidad
+        );
 
 
     if(
@@ -2017,9 +2636,9 @@ function(
 
 
 
-/* ===================================================== */
-/* QUITAR CARRITO */
-/* ===================================================== */
+/* =====================================================
+   QUITAR CARRITO
+===================================================== */
 
 window.quitarCarrito =
 function(id){
@@ -2036,9 +2655,9 @@ function(id){
 
 
 
-/* ===================================================== */
-/* CAMBIAR VISIBILIDAD FORMA DE PAGO */
-/* ===================================================== */
+/* =====================================================
+   FORMA DE PAGO
+===================================================== */
 
 document.getElementById(
     "estadoPago"
@@ -2059,9 +2678,11 @@ document.getElementById(
             contenedor.style.display =
                 "none";
 
+
             document.getElementById(
                 "formaPago"
-            ).value = "";
+            ).value =
+                "";
 
         }
 
@@ -2077,9 +2698,9 @@ document.getElementById(
 
 
 
-/* ===================================================== */
-/* FINALIZAR VENTA */
-/* ===================================================== */
+/* =====================================================
+   FINALIZAR VENTA
+===================================================== */
 
 window.finalizarVenta =
 async function(){
@@ -2139,9 +2760,10 @@ async function(){
     }
 
 
-    /* ============================================= */
-    /* VERIFICAR INVENTARIO */
-    /* ============================================= */
+
+    /* ==============================================
+       VERIFICAR INVENTARIO
+    ============================================== */
 
     for(
         const item of venta
@@ -2199,9 +2821,10 @@ async function(){
             new Date().toISOString();
 
 
-        /* ============================================= */
-        /* GUARDAR CADA PRODUCTO */
-        /* ============================================= */
+
+        /* ==========================================
+           GUARDAR CADA PRODUCTO
+        ========================================== */
 
         for(
             const item of venta
@@ -2271,9 +2894,10 @@ async function(){
                 );
 
 
-            /* ========================================= */
-            /* ACTUALIZAR INVENTARIO */
-            /* ========================================= */
+
+            /* ======================================
+               ACTUALIZAR INVENTARIO
+            ====================================== */
 
             const nuevoStock =
                 Number(producto.cantidad) -
@@ -2300,6 +2924,7 @@ async function(){
 
             producto.cantidad =
                 nuevoStock;
+
 
 
             historialVentas.push({
@@ -2356,14 +2981,26 @@ async function(){
         }
 
 
+
         const totalVenta =
             venta.reduce(
-                function(suma,item){
+                function(
+                    suma,
+                    item
+                ){
 
                     return suma +
+
                         (
-                            Number(item.precioVenta) *
-                            Number(item.cantidad)
+                            Number(
+                                item.precioVenta
+                            )
+
+                            *
+
+                            Number(
+                                item.cantidad
+                            )
                         );
 
                 },
@@ -2371,12 +3008,15 @@ async function(){
             );
 
 
+
         venta = [];
+
 
 
         document.getElementById(
             "clienteVenta"
-        ).value = "";
+        ).value =
+            "";
 
 
         document.getElementById(
@@ -2387,13 +3027,15 @@ async function(){
 
         document.getElementById(
             "formaPago"
-        ).value = "";
+        ).value =
+            "";
 
 
         document.getElementById(
             "contenedorFormaPago"
         ).style.display =
             "block";
+
 
 
         mostrarCarrito();
@@ -2405,10 +3047,12 @@ async function(){
         mostrarPendientes();
 
 
+
         mostrarEstado(
             "☁️ Venta guardada correctamente",
             "ok"
         );
+
 
 
         alert(
@@ -2417,7 +3061,9 @@ async function(){
 
             (
                 cliente
-                ? "Cliente: " + cliente + "\n"
+                ? "Cliente: " +
+                  cliente +
+                  "\n"
                 : ""
             ) +
 
@@ -2458,9 +3104,9 @@ async function(){
 
 
 
-/* ===================================================== */
-/* FECHA */
-/* ===================================================== */
+/* =====================================================
+   FECHA
+===================================================== */
 
 function obtenerFecha(){
 
@@ -2474,8 +3120,9 @@ function obtenerFecha(){
 
     const mes =
         String(
-            fecha.getMonth()+1
-        ).padStart(
+            fecha.getMonth() + 1
+        )
+        .padStart(
             2,
             "0"
         );
@@ -2484,7 +3131,8 @@ function obtenerFecha(){
     const dia =
         String(
             fecha.getDate()
-        ).padStart(
+        )
+        .padStart(
             2,
             "0"
         );
@@ -2504,9 +3152,9 @@ function obtenerFecha(){
 
 
 
-/* ===================================================== */
-/* FORMATEAR FECHA */
-/* ===================================================== */
+/* =====================================================
+   FORMATEAR FECHA
+===================================================== */
 
 function formatearFecha(
     fecha
@@ -2520,7 +3168,9 @@ function formatearFecha(
         fecha.split("-");
 
 
-    if(partes.length !== 3)
+    if(
+        partes.length !== 3
+    )
         return fecha;
 
 
@@ -2538,9 +3188,9 @@ function formatearFecha(
 
 
 
-/* ===================================================== */
-/* REPORTE */
-/* ===================================================== */
+/* =====================================================
+   REPORTE
+===================================================== */
 
 window.mostrarReporte =
 function(){
@@ -2566,7 +3216,8 @@ function(){
     const producto =
         document.getElementById(
             "productoReporte"
-        ).value.toLowerCase();
+        ).value
+        .toLowerCase();
 
 
     const pago =
@@ -2594,6 +3245,7 @@ function(){
     }
 
 
+
     const ventasFiltradas =
         historialVentas.filter(
             function(v){
@@ -2610,17 +3262,24 @@ function(){
 
                 const okPropietario =
                     propietario === "" ||
-                    v.propietario === propietario;
+                    v.propietario ===
+                    propietario;
 
 
                 const okProducto =
                     producto === "" ||
-                    String(v.producto || "")
+
+                    String(
+                        v.producto || ""
+                    )
                     .toLowerCase()
-                    .includes(producto);
+                    .includes(
+                        producto
+                    );
 
 
-                let okPago = true;
+                let okPago =
+                    true;
 
 
                 if(
@@ -2638,8 +3297,11 @@ function(){
                 ){
 
                     okPago =
-                        v.formaPago === pago &&
-                        v.estadoPago === "Pagado";
+                        v.formaPago ===
+                        pago &&
+
+                        v.estadoPago ===
+                        "Pagado";
 
                 }
 
@@ -2647,9 +3309,13 @@ function(){
                 return (
 
                     okDesde &&
+
                     okHasta &&
+
                     okPropietario &&
+
                     okProducto &&
+
                     okPago
 
                 );
@@ -2659,13 +3325,20 @@ function(){
 
 
 
-    let totalCantidad = 0;
+    let totalCantidad =
+        0;
 
-    let totalDinero = 0;
 
-    let efectivo = 0;
+    let totalDinero =
+        0;
 
-    let tarjeta = 0;
+
+    let efectivo =
+        0;
+
+
+    let tarjeta =
+        0;
 
 
 
@@ -2673,31 +3346,53 @@ function(){
         function(v){
 
             totalCantidad +=
-                Number(v.cantidad);
+                Number(
+                    v.cantidad
+                );
 
 
             totalDinero +=
-                Number(v.total);
+                Number(
+                    v.total
+                );
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Efectivo"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Efectivo"
+
             ){
 
                 efectivo +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Tarjeta"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Tarjeta"
+
             ){
 
                 tarjeta +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
@@ -2749,9 +3444,9 @@ function(){
 
 
 
-    /* ============================================= */
-    /* DETALLE */
-    /* ============================================= */
+    /* ==============================================
+       DETALLE
+    ============================================== */
 
     let html = "";
 
@@ -2779,15 +3474,22 @@ function(){
                 </td>
 
                 <td>
-                    ${v.cliente || "Sin nombre"}
+                    ${escaparHTML(
+                        v.cliente ||
+                        "Sin nombre"
+                    )}
                 </td>
 
                 <td>
-                    ${v.propietario}
+                    ${escaparHTML(
+                        v.propietario
+                    )}
                 </td>
 
                 <td>
-                    ${v.producto}
+                    ${escaparHTML(
+                        v.producto
+                    )}
                 </td>
 
                 <td>
@@ -2795,35 +3497,52 @@ function(){
                 </td>
 
                 <td>
-                    $${Number(v.precioVenta || v.precio || 0).toFixed(2)}
+                    $${Number(
+                        v.precioVenta ||
+                        v.precio ||
+                        0
+                    ).toFixed(2)}
                 </td>
 
                 <td>
-                    $${Number(v.descuento || 0).toFixed(2)}
+                    $${Number(
+                        v.descuento ||
+                        0
+                    ).toFixed(2)}
                 </td>
 
                 <td>
-                    ${v.formaPago || "Pendiente"}
+                    ${escaparHTML(
+                        v.formaPago ||
+                        "Pendiente"
+                    )}
                 </td>
 
                 <td>
 
                     ${
-                        v.estadoPago === "Pagado"
+                        v.estadoPago ===
+                        "Pagado"
 
-                        ? `<span class="badge badge-pagado">
+                        ?
+
+                        `<span class="badge badge-pagado">
                             Pagado
-                           </span>`
+                         </span>`
 
-                        : `<span class="badge badge-no-pagado">
+                        :
+
+                        `<span class="badge badge-no-pagado">
                             No pagado
-                           </span>`
+                         </span>`
                     }
 
                 </td>
 
                 <td>
-                    $${Number(v.total).toFixed(2)}
+                    $${Number(
+                        v.total
+                    ).toFixed(2)}
                 </td>
 
             </tr>
@@ -2870,9 +3589,9 @@ function(){
 
 
 
-/* ===================================================== */
-/* RESUMEN PROPIETARIOS */
-/* ===================================================== */
+/* =====================================================
+   RESUMEN PROPIETARIOS
+===================================================== */
 
 function generarResumenPropietarios(
     ventas
@@ -2888,17 +3607,24 @@ function generarResumenPropietarios(
                 !datos[v.propietario]
             ){
 
-                datos[v.propietario] = {
+                datos[
+                    v.propietario
+                ] = {
 
-                    cantidad:0,
+                    cantidad:
+                        0,
 
-                    efectivo:0,
+                    efectivo:
+                        0,
 
-                    tarjeta:0,
+                    tarjeta:
+                        0,
 
-                    pendiente:0,
+                    pendiente:
+                        0,
 
-                    total:0
+                    total:
+                        0
 
                 };
 
@@ -2908,49 +3634,74 @@ function generarResumenPropietarios(
             datos[
                 v.propietario
             ].cantidad +=
-                Number(v.cantidad);
+                Number(
+                    v.cantidad
+                );
 
 
             datos[
                 v.propietario
             ].total +=
-                Number(v.total);
+                Number(
+                    v.total
+                );
 
 
             if(
-                v.estadoPago === "No pagado"
+                v.estadoPago ===
+                "No pagado"
             ){
 
                 datos[
                     v.propietario
                 ].pendiente +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Efectivo"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Efectivo"
+
             ){
 
                 datos[
                     v.propietario
                 ].efectivo +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Tarjeta"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Tarjeta"
+
             ){
 
                 datos[
                     v.propietario
                 ].tarjeta +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
@@ -2975,7 +3726,7 @@ function generarResumenPropietarios(
             <tr>
 
                 <td>
-                    ${nombre}
+                    ${escaparHTML(nombre)}
                 </td>
 
                 <td>
@@ -3032,9 +3783,9 @@ function generarResumenPropietarios(
 
 
 
-/* ===================================================== */
-/* RESUMEN PRODUCTOS */
-/* ===================================================== */
+/* =====================================================
+   RESUMEN PRODUCTOS
+===================================================== */
 
 function generarResumenProductos(
     ventas
@@ -3064,15 +3815,20 @@ function generarResumenProductos(
                     producto:
                         v.producto,
 
-                    cantidad:0,
+                    cantidad:
+                        0,
 
-                    efectivo:0,
+                    efectivo:
+                        0,
 
-                    tarjeta:0,
+                    tarjeta:
+                        0,
 
-                    pendiente:0,
+                    pendiente:
+                        0,
 
-                    total:0
+                    total:
+                        0
 
                 };
 
@@ -3080,41 +3836,66 @@ function generarResumenProductos(
 
 
             datos[clave].cantidad +=
-                Number(v.cantidad);
+                Number(
+                    v.cantidad
+                );
 
 
             datos[clave].total +=
-                Number(v.total);
+                Number(
+                    v.total
+                );
 
 
             if(
-                v.estadoPago === "No pagado"
+                v.estadoPago ===
+                "No pagado"
             ){
 
                 datos[clave].pendiente +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Efectivo"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Efectivo"
+
             ){
 
                 datos[clave].efectivo +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
 
             if(
-                v.estadoPago === "Pagado" &&
-                v.formaPago === "Tarjeta"
+
+                v.estadoPago ===
+                "Pagado"
+
+                &&
+
+                v.formaPago ===
+                "Tarjeta"
+
             ){
 
                 datos[clave].tarjeta +=
-                    Number(v.total);
+                    Number(
+                        v.total
+                    );
 
             }
 
@@ -3153,11 +3934,15 @@ function generarResumenProductos(
             <tr>
 
                 <td>
-                    ${v.propietario}
+                    ${escaparHTML(
+                        v.propietario
+                    )}
                 </td>
 
                 <td>
-                    ${v.producto}
+                    ${escaparHTML(
+                        v.producto
+                    )}
                 </td>
 
                 <td>
@@ -3214,9 +3999,9 @@ function generarResumenProductos(
 
 
 
-/* ===================================================== */
-/* CLIENTES PENDIENTES */
-/* ===================================================== */
+/* =====================================================
+   CLIENTES PENDIENTES
+===================================================== */
 
 window.mostrarPendientes =
 function(){
@@ -3257,20 +4042,27 @@ function(){
         );
 
 
-    let totalPendiente = 0;
+    let totalPendiente =
+        0;
 
-    let cantidadProductos = 0;
+
+    let cantidadProductos =
+        0;
 
 
     pendientes.forEach(
         function(v){
 
             totalPendiente +=
-                Number(v.total);
+                Number(
+                    v.total
+                );
 
 
             cantidadProductos +=
-                Number(v.cantidad);
+                Number(
+                    v.cantidad
+                );
 
         }
     );
@@ -3301,6 +4093,7 @@ function(){
     `;
 
 
+
     let html = "";
 
 
@@ -3328,18 +4121,23 @@ function(){
 
                 <td>
                     ${
-                        v.cliente
-                        ? v.cliente
-                        : "Sin nombre"
+                        escaparHTML(
+                            v.cliente ||
+                            "Sin nombre"
+                        )
                     }
                 </td>
 
                 <td>
-                    ${v.propietario}
+                    ${escaparHTML(
+                        v.propietario
+                    )}
                 </td>
 
                 <td>
-                    ${v.producto}
+                    ${escaparHTML(
+                        v.producto
+                    )}
                 </td>
 
                 <td>
@@ -3347,15 +4145,23 @@ function(){
                 </td>
 
                 <td>
-                    $${Number(v.precioVenta || 0).toFixed(2)}
+                    $${Number(
+                        v.precioVenta ||
+                        0
+                    ).toFixed(2)}
                 </td>
 
                 <td>
-                    $${Number(v.descuento || 0).toFixed(2)}
+                    $${Number(
+                        v.descuento ||
+                        0
+                    ).toFixed(2)}
                 </td>
 
                 <td>
-                    $${Number(v.total).toFixed(2)}
+                    $${Number(
+                        v.total
+                    ).toFixed(2)}
                 </td>
 
                 <td>
@@ -3370,7 +4176,11 @@ function(){
 
                     <button
                         class="btn-pagar"
-                        onclick="marcarComoPagado('${v.id}')"
+                        onclick="
+                            marcarComoPagado(
+                                '${v.id}'
+                            )
+                        "
                     >
                         💵 Marcar pagado
                     </button>
@@ -3395,8 +4205,14 @@ function(){
 
                 ${
                     buscar
-                    ? "No hay productos pendientes para ese cliente"
-                    : "No hay clientes con pagos pendientes"
+
+                    ?
+
+                    "No hay productos pendientes para ese cliente"
+
+                    :
+
+                    "No hay clientes con pagos pendientes"
                 }
 
             </td>
@@ -3417,9 +4233,9 @@ function(){
 
 
 
-/* ===================================================== */
-/* MARCAR PRODUCTO COMO PAGADO */
-/* ===================================================== */
+/* =====================================================
+   MARCAR COMO PAGADO
+===================================================== */
 
 window.marcarComoPagado =
 async function(id){
@@ -3455,26 +4271,32 @@ async function(id){
     }
 
 
-    /* ============================================= */
-    /* ELEGIR FORMA DE PAGO */
-    /* ============================================= */
 
     let formaPago =
         prompt(
+
             "¿Cómo pagó el cliente?\n\n" +
+
             "Escribe:\n" +
+
             "Efectivo\n" +
+
             "o\n" +
+
             "Tarjeta"
+
         );
 
 
-    if(formaPago === null)
+    if(
+        formaPago === null
+    )
         return;
 
 
     formaPago =
         formaPago.trim();
+
 
 
     if(
@@ -3515,20 +4337,24 @@ async function(id){
             "¿Marcar como PAGADO este producto?\n\n" +
 
             "Cliente: " +
+
             (
                 ventaPendiente.cliente ||
                 "Sin nombre"
             ) +
 
             "\nProducto: " +
+
             ventaPendiente.producto +
 
             "\nTotal: $" +
+
             Number(
                 ventaPendiente.total
             ).toFixed(2) +
 
             "\nForma de pago: " +
+
             formaPago
 
         )
@@ -3578,10 +4404,6 @@ async function(id){
         );
 
 
-        /* ========================================= */
-        /* ACTUALIZAR MEMORIA LOCAL */
-        /* ========================================= */
-
         ventaPendiente.estadoPago =
             "Pagado";
 
@@ -3602,6 +4424,7 @@ async function(id){
         mostrarPendientes();
 
         mostrarReporte();
+
 
 
         mostrarEstado(
@@ -3638,36 +4461,41 @@ async function(id){
 
 
 
-/* ===================================================== */
-/* LIMPIAR FILTROS */
-/* ===================================================== */
+/* =====================================================
+   LIMPIAR FILTROS
+===================================================== */
 
 window.limpiarFiltros =
 function(){
 
     document.getElementById(
         "fechaDesde"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "fechaHasta"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "propietarioReporte"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "productoReporte"
-    ).value = "";
+    ).value =
+        "";
 
 
     document.getElementById(
         "pagoReporte"
-    ).value = "";
+    ).value =
+        "";
 
 
     mostrarReporte();
@@ -3676,9 +4504,9 @@ function(){
 
 
 
-/* ===================================================== */
-/* INICIAR */
-/* ===================================================== */
+/* =====================================================
+   INICIAR
+===================================================== */
 
 cargarDatos();
 
