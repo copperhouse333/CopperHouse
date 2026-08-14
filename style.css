@@ -837,3 +837,377 @@ tr:hover {
     width:90px;
     min-width:90px;
 }
+
+
+
+
+/* =====================================================
+   BOTONES GENERALES
+===================================================== */
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin: 4px;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* =====================================================
+   BOTONES PARA ABRIR CONTENEDORES
+===================================================== */
+
+.btn-abrir {
+
+    display: block;
+
+    width: 100%;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 14px 18px;
+
+    font-size: 17px;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+
+}
+
+.btn-abrir:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =====================================================
+   BOTONES PARA CERRAR CONTENEDORES
+===================================================== */
+
+.btn-cerrar {
+
+    display: block;
+
+    width: 100%;
+
+    background: #dc2626;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    margin-top: 20px;
+
+    border-radius: 8px;
+
+}
+
+.btn-cerrar:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* =====================================================
+   BOTÓN AGREGAR PRODUCTO
+===================================================== */
+
+.btn-mostrar-agregar {
+
+    width: 100%;
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 12px 18px;
+
+}
+
+.btn-mostrar-agregar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN CERRAR FORMULARIO
+===================================================== */
+
+.btn-cerrar-formulario {
+
+    background: #6b7280;
+
+    color: white;
+
+}
+
+.btn-cerrar-formulario:hover {
+
+    background: #4b5563;
+
+}
+
+
+/* =====================================================
+   BOTÓN GUARDAR
+===================================================== */
+
+.btn-guardar {
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 12px 20px;
+
+}
+
+.btn-guardar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN FINALIZAR VENTA
+===================================================== */
+
+.btn-finalizar {
+
+    width: 100%;
+
+    background: #7c3aed;
+
+    color: white;
+
+    padding: 14px 20px;
+
+    font-size: 17px;
+
+    margin-top: 15px;
+
+}
+
+.btn-finalizar:hover {
+
+    background: #6d28d9;
+
+}
+
+
+/* =====================================================
+   BOTÓN AGREGAR AL CARRITO
+===================================================== */
+
+.btn-agregar {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+.btn-agregar:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =====================================================
+   BOTÓN EDITAR
+===================================================== */
+
+.btn-editar {
+
+    background: #f59e0b;
+
+    color: white;
+
+}
+
+.btn-editar:hover {
+
+    background: #d97706;
+
+}
+
+
+/* =====================================================
+   BOTÓN ELIMINAR
+===================================================== */
+
+.btn-eliminar {
+
+    background: #dc2626;
+
+    color: white;
+
+}
+
+.btn-eliminar:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* =====================================================
+   BOTÓN MARCAR PAGADO
+===================================================== */
+
+.btn-pagar {
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 10px 14px;
+
+    white-space: nowrap;
+
+}
+
+.btn-pagar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN REPORTE
+===================================================== */
+
+.btn-reporte {
+
+    background: #0891b2;
+
+    color: white;
+
+    padding: 11px 18px;
+
+}
+
+.btn-reporte:hover {
+
+    background: #0e7490;
+
+}
+
+
+/* =====================================================
+   BOTÓN LIMPIAR
+===================================================== */
+
+.btn-limpiar {
+
+    background: #6b7280;
+
+    color: white;
+
+    padding: 11px 18px;
+
+}
+
+.btn-limpiar:hover {
+
+    background: #4b5563;
+
+}
+
+
+/* =====================================================
+   CONTENEDORES OCULTABLES
+===================================================== */
+
+.contenedor-oculto {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 15px;
+
+}
+
+
+/* =====================================================
+   FORMULARIO DE PRODUCTO
+===================================================== */
+
+.formulario-producto {
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+}
+
+
+/* =====================================================
+   BOTONES EN PANTALLAS PEQUEÑAS
+===================================================== */
+
+@media (max-width: 600px) {
+
+    button {
+
+        width: 100%;
+
+        margin: 5px 0;
+
+    }
+
+    .btn-abrir {
+
+        width: 100%;
+
+        font-size: 16px;
+
+    }
+
+    .btn-cerrar {
+
+        width: 100%;
+
+    }
+
+    .btn-pagar {
+
+        width: 100%;
+
+        white-space: normal;
+
+    }
+
+}
