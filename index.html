@@ -14,6 +14,9 @@
 
 <link rel="stylesheet" href="style.css">
 
+<script src="functions.js"></script>
+
+
 </head>
 
 
@@ -48,168 +51,228 @@
 
     <div class="card">
 
-        <h2>📦 Agregar Producto</h2>
-
-
-        <!-- NOMBRE -->
-
-        <input
-            id="nombre"
-            type="text"
-            placeholder="Nombre del producto"
-        >
-
-
-        <!-- CANTIDAD -->
-
-        <input
-            id="cantidad"
-            type="number"
-            placeholder="Cantidad en inventario"
-            min="0"
-        >
-
-
-        <!-- PRECIO -->
-
-        <input
-            id="precio"
-            type="number"
-            placeholder="Precio"
-            min="0"
-            step="0.01"
-        >
-
-
-        <!-- PROPIETARIO -->
-
-        <label for="propietario">
-            Propietario:
-        </label>
-
-        <select id="propietario">
-
-            <option value="">
-                Selecciona propietario
-            </option>
-
-            <option value="Salvador Urincho Amarillo">
-                Salvador Angel Urincho "Amarillo"
-            </option>
-
-            <option value="Salvador Pedro Verde">
-                Salvador Pedro Angel "Verde"
-            </option>
-
-            <option value="Jesús Gómez Blanco">
-                Jesús Gómez "Blanco"
-            </option>
-
-            <option value="Sebastian Blanco">
-                Sebastián "Blanco"
-            </option>
-
-            <option value="Sandra Blanco">
-                Sandra "Blanco"
-            </option>
-
-            <option value="Sophía Naranja">
-                Sophía "Naranja"
-            </option>
-
-        </select>
-
-
-        <!-- =================================================
-             FOTO
-        ================================================== -->
-
-        <label for="fotoProducto">
-            📷 Foto del producto:
-        </label>
-
-        <input
-            id="fotoProducto"
-            type="file"
-            accept="image/*"
-            capture="environment"
-            onchange="previsualizarFoto(event)"
-        >
-
-
-        <div id="vistaPreviaFoto"></div>
-
-
-        <!-- GUARDAR -->
+        <!-- BOTÓN ABRIR PRODUCTOS -->
 
         <button
-            class="btn-guardar"
-            onclick="agregarProducto()"
+            type="button"
+            class="btn-abrir"
+            onclick="abrirContenedor('contenedorProductos')"
         >
-            💾 Guardar Producto
+            📦 Productos
         </button>
 
 
-        <hr>
+        <!-- CONTENEDOR OCULTO -->
 
-
-        <h2>
-            Productos guardados
-        </h2>
-
-
-        <!-- BUSCAR PRODUCTO -->
-
-        <input
-            id="buscar"
-            type="text"
-            placeholder="Buscar producto..."
-            onkeyup="mostrarProductos()"
+        <div
+            id="contenedorProductos"
+            class="contenedor-oculto"
+            style="display:none;"
         >
 
-
-        <!-- TABLA PRODUCTOS -->
-
-        <div class="table-container">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Foto
-                        </th>
-
-                        <th>
-                            Producto
-                        </th>
-
-                        <th>
-                            Propietario
-                        </th>
-
-                        <th>
-                            Stock
-                        </th>
-
-                        <th>
-                            Precio
-                        </th>
-
-                        <th>
-                            Acciones
-                        </th>
-
-                    </tr>
-
-                </thead>
+            <h2>
+                📦 Agregar Producto
+            </h2>
 
 
-                <tbody id="listaProductos"></tbody>
+            <!-- BOTÓN PARA MOSTRAR FORMULARIO -->
 
-            </table>
+            <button
+                type="button"
+                class="btn-mostrar-agregar"
+                onclick="mostrarFormularioProducto()"
+            >
+                ➕ Agregar producto
+            </button>
+
+
+            <!-- FORMULARIO -->
+
+            <div
+                id="formularioProducto"
+                class="formulario-producto"
+                style="display:none;"
+            >
+
+                <h2>
+                    📦 Agregar Producto
+                </h2>
+
+
+                <input
+                    id="nombre"
+                    type="text"
+                    placeholder="Nombre del producto"
+                >
+
+
+                <input
+                    id="cantidad"
+                    type="number"
+                    placeholder="Cantidad en inventario"
+                    min="0"
+                >
+
+
+                <input
+                    id="precio"
+                    type="number"
+                    placeholder="Precio"
+                    min="0"
+                    step="0.01"
+                >
+
+
+                <label for="propietario">
+                    Propietario:
+                </label>
+
+
+                <select id="propietario">
+
+                    <option value="">
+                        Selecciona propietario
+                    </option>
+
+                    <option value="Salvador Urincho Amarillo">
+                        Salvador Angel Urincho "Amarillo"
+                    </option>
+
+                    <option value="Salvador Pedro Verde">
+                        Salvador Pedro Angel "Verde"
+                    </option>
+
+                    <option value="Jesús Gómez Blanco">
+                        Jesús Gómez "Blanco"
+                    </option>
+
+                    <option value="Sebastian Blanco">
+                        Sebastián "Blanco"
+                    </option>
+
+                    <option value="Sandra Blanco">
+                        Sandra "Blanco"
+                    </option>
+
+                    <option value="Sophía Naranja">
+                        Sophía "Naranja"
+                    </option>
+
+                </select>
+
+
+                <!-- FOTO -->
+
+                <label for="fotoProducto">
+                    📷 Foto del producto:
+                </label>
+
+
+                <input
+                    id="fotoProducto"
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    onchange="previsualizarFoto(event)"
+                >
+
+
+                <div id="vistaPreviaFoto"></div>
+
+
+                <!-- GUARDAR -->
+
+                <button
+                    type="button"
+                    class="btn-guardar"
+                    onclick="agregarProducto()"
+                >
+                    💾 Guardar Producto
+                </button>
+
+
+                <!-- CERRAR FORMULARIO -->
+
+                <button
+                    type="button"
+                    class="btn-cerrar-formulario"
+                    onclick="ocultarFormularioProducto()"
+                >
+                    ✖ Cerrar formulario
+                </button>
+
+            </div>
+
+
+            <hr>
+
+
+            <h2>
+                📦 Productos guardados
+            </h2>
+
+
+            <input
+                id="buscar"
+                type="text"
+                placeholder="Buscar producto..."
+                onkeyup="mostrarProductos()"
+            >
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Foto
+                            </th>
+
+                            <th>
+                                Producto
+                            </th>
+
+                            <th>
+                                Propietario
+                            </th>
+
+                            <th>
+                                Stock
+                            </th>
+
+                            <th>
+                                Precio
+                            </th>
+
+                            <th>
+                                Acciones
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="listaProductos"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- CERRAR CONTENEDOR -->
+
+            <button
+                type="button"
+                class="btn-cerrar"
+                onclick="cerrarContenedor('contenedorProductos')"
+            >
+                ✖ Cerrar productos
+            </button>
 
         </div>
 
@@ -223,149 +286,170 @@
 
     <div class="card">
 
-        <h2>💰 Venta</h2>
+        <!-- BOTÓN ABRIR -->
 
-
-        <!-- CLIENTE -->
-
-        <label for="clienteVenta">
-            Nombre del cliente:
-        </label>
-
-        <input
-            id="clienteVenta"
-            class="cliente-input"
-            type="text"
-            placeholder="Opcional - puede dejarse vacío"
+        <button
+            type="button"
+            class="btn-abrir"
+            onclick="abrirContenedor('contenedorVenta')"
         >
+            💰 Venta
+        </button>
 
-
-        <!-- CARRITO -->
-
-        <div class="table-container">
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Foto
-                        </th>
-
-                        <th>
-                            Producto
-                        </th>
-
-                        <th>
-                            Propietario
-                        </th>
-
-                        <th>
-                            Cant.
-                        </th>
-
-                        <th>
-                            Precio
-                        </th>
-
-                        <th>
-                            Descuento
-                        </th>
-
-                        <th>
-                            Total
-                        </th>
-
-                        <th>
-                            Acción
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody id="carrito"></tbody>
-
-            </table>
-
-        </div>
-
-
-        <!-- TOTAL -->
-
-        <div class="total">
-
-            Total:
-
-            $<span id="total">
-                0.00
-            </span>
-
-        </div>
-
-
-        <!-- ESTADO DE PAGO -->
-
-        <label for="estadoPago">
-            Estado de pago:
-        </label>
-
-
-        <select id="estadoPago">
-
-            <option value="Pagado">
-                ✅ Pagado
-            </option>
-
-            <option value="No pagado">
-                ⏳ No pagado
-            </option>
-
-        </select>
-
-
-        <!-- FORMA DE PAGO -->
 
         <div
-            id="contenedorFormaPago"
-            style="margin-top:10px;"
+            id="contenedorVenta"
+            class="contenedor-oculto"
+            style="display:none;"
         >
 
-            <label for="formaPago">
-                Forma de pago:
+            <h2>
+                💰 Venta
+            </h2>
+
+
+            <label for="clienteVenta">
+                Nombre del cliente:
             </label>
 
 
-            <select id="formaPago">
+            <input
+                id="clienteVenta"
+                class="cliente-input"
+                type="text"
+                placeholder="Opcional - puede dejarse vacío"
+            >
 
-                <option value="">
-                    Selecciona forma de pago
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Foto
+                            </th>
+
+                            <th>
+                                Producto
+                            </th>
+
+                            <th>
+                                Propietario
+                            </th>
+
+                            <th>
+                                Cant.
+                            </th>
+
+                            <th>
+                                Precio
+                            </th>
+
+                            <th>
+                                Descuento
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Acción
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="carrito"></tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="total">
+
+                Total:
+
+                $<span id="total">
+                    0.00
+                </span>
+
+            </div>
+
+
+            <label for="estadoPago">
+                Estado de pago:
+            </label>
+
+
+            <select id="estadoPago">
+
+                <option value="Pagado">
+                    ✅ Pagado
                 </option>
 
-                <option value="Efectivo">
-                    💵 Efectivo
-                </option>
-
-                <option value="Tarjeta">
-                    💳 Tarjeta
+                <option value="No pagado">
+                    ⏳ No pagado
                 </option>
 
             </select>
 
+
+            <div
+                id="contenedorFormaPago"
+                style="margin-top:10px;"
+            >
+
+                <label for="formaPago">
+                    Forma de pago:
+                </label>
+
+
+                <select id="formaPago">
+
+                    <option value="">
+                        Selecciona forma de pago
+                    </option>
+
+                    <option value="Efectivo">
+                        💵 Efectivo
+                    </option>
+
+                    <option value="Tarjeta">
+                        💳 Tarjeta
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="btn-finalizar"
+                onclick="finalizarVenta()"
+            >
+                💰 Finalizar Venta
+            </button>
+
+
+            <!-- CERRAR -->
+
+            <button
+                type="button"
+                class="btn-cerrar"
+                onclick="cerrarContenedor('contenedorVenta')"
+            >
+                ✖ Cerrar venta
+            </button>
+
         </div>
-
-
-        <!-- FINALIZAR -->
-
-        <button
-            class="btn-finalizar"
-            onclick="finalizarVenta()"
-        >
-            💰 Finalizar Venta
-        </button>
 
     </div>
 
@@ -379,94 +463,89 @@
 
 <div class="card">
 
-    <h2>
-        ⏳ Clientes que no han pagado
-    </h2>
-
-
-    <p>
-        Aquí puedes buscar clientes con productos pendientes
-        y marcar cada producto individualmente como pagado.
-    </p>
-
-
-    <!-- BUSCAR CLIENTE -->
-
-    <input
-        id="buscarClientePendiente"
-        type="text"
-        placeholder="Buscar nombre del cliente..."
-        onkeyup="mostrarPendientes()"
-    >
-
-
     <button
-        class="btn-reporte"
-        onclick="mostrarPendientes()"
+        type="button"
+        class="btn-abrir"
+        onclick="abrirContenedor('contenedorPendientes')"
     >
-        🔍 Buscar pendientes
+        ⏳ Pagos pendientes
     </button>
 
 
-    <div id="resumenPendientes"></div>
+    <div
+        id="contenedorPendientes"
+        class="contenedor-oculto"
+        style="display:none;"
+    >
+
+        <h2>
+            ⏳ Clientes que no han pagado
+        </h2>
 
 
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Fecha
-                    </th>
-
-                    <th>
-                        Cliente
-                    </th>
-
-                    <th>
-                        Propietario
-                    </th>
-
-                    <th>
-                        Producto
-                    </th>
-
-                    <th>
-                        Cantidad
-                    </th>
-
-                    <th>
-                        Precio
-                    </th>
-
-                    <th>
-                        Descuento
-                    </th>
-
-                    <th>
-                        Total
-                    </th>
-
-                    <th>
-                        Estado
-                    </th>
-
-                    <th>
-                        Acción
-                    </th>
-
-                </tr>
-
-            </thead>
+        <p>
+            Aquí puedes buscar clientes con productos pendientes
+            y marcar cada producto individualmente como pagado.
+        </p>
 
 
-            <tbody id="listaPendientes"></tbody>
+        <input
+            id="buscarClientePendiente"
+            type="text"
+            placeholder="Buscar nombre del cliente..."
+            onkeyup="mostrarPendientes()"
+        >
 
-        </table>
+
+        <button
+            class="btn-reporte"
+            onclick="mostrarPendientes()"
+        >
+            🔍 Buscar pendientes
+        </button>
+
+
+        <div id="resumenPendientes"></div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Propietario</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Descuento</th>
+                        <th>Total</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="listaPendientes"></tbody>
+
+            </table>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn-cerrar"
+            onclick="cerrarContenedor('contenedorPendientes')"
+        >
+            ✖ Cerrar pagos pendientes
+        </button>
 
     </div>
 
@@ -475,428 +554,341 @@
 
 
 <!-- =====================================================
-     REPORTE DE VENTAS
+     REPORTE
 ===================================================== -->
 
 <div class="card">
 
-    <h2>
-        📊 Reporte de Ventas
-    </h2>
-
-
-    <div class="filtros">
-
-
-        <div>
-
-            <label for="fechaDesde">
-                Desde:
-            </label>
-
-            <input
-                id="fechaDesde"
-                type="date"
-                onchange="mostrarReporte()"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label for="fechaHasta">
-                Hasta:
-            </label>
-
-            <input
-                id="fechaHasta"
-                type="date"
-                onchange="mostrarReporte()"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label for="propietarioReporte">
-                Propietario:
-            </label>
-
-            <select
-                id="propietarioReporte"
-                onchange="mostrarReporte()"
-            >
-
-                <option value="">
-                    Todos
-                </option>
-
-                <option value="Salvador Urincho Amarillo">
-                    Salvador Angel Urincho "Amarillo"
-                </option>
-
-                <option value="Salvador Pedro Verde">
-                    Salvador Pedro Angel "Verde"
-                </option>
-
-                <option value="Jesús Gómez Blanco">
-                    Jesús Gómez "Blanco"
-                </option>
-
-                <option value="Sebastian Blanco">
-                    Sebastián "Blanco"
-                </option>
-
-                <option value="Sandra Blanco">
-                    Sandra "Blanco"
-                </option>
-
-                <option value="Sophía Naranja">
-                    Sophía "Naranja"
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div>
-
-            <label for="productoReporte">
-                Producto:
-            </label>
-
-            <input
-                id="productoReporte"
-                type="text"
-                placeholder="Buscar producto..."
-                onkeyup="mostrarReporte()"
-            >
-
-        </div>
-
-
-        <div>
-
-            <label for="pagoReporte">
-                Forma de pago:
-            </label>
-
-            <select
-                id="pagoReporte"
-                onchange="mostrarReporte()"
-            >
-
-                <option value="">
-                    Todas
-                </option>
-
-                <option value="Efectivo">
-                    💵 Efectivo
-                </option>
-
-                <option value="Tarjeta">
-                    💳 Tarjeta
-                </option>
-
-                <option value="Pendiente">
-                    ⏳ Pendientes
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <br>
-
-
     <button
-        class="btn-reporte"
-        onclick="mostrarReporte()"
+        type="button"
+        class="btn-abrir"
+        onclick="abrirContenedor('contenedorReporte')"
     >
-        🔍 Buscar
+        📊 Reporte de ventas
     </button>
 
 
-    <button
-        class="btn-limpiar"
-        onclick="limpiarFiltros()"
+    <div
+        id="contenedorReporte"
+        class="contenedor-oculto"
+        style="display:none;"
     >
-        Limpiar
-    </button>
+
+        <h2>
+            📊 Reporte de Ventas
+        </h2>
 
 
-    <!-- RESUMEN -->
+        <div class="filtros">
 
-    <div class="resumen">
+            <div>
 
-        <div>
+                <label>
+                    Desde:
+                </label>
 
-            Ventas
+                <input
+                    id="fechaDesde"
+                    type="date"
+                    onchange="mostrarReporte()"
+                >
 
-            <strong id="totalVentas">
-                0
-            </strong>
+            </div>
+
+
+            <div>
+
+                <label>
+                    Hasta:
+                </label>
+
+                <input
+                    id="fechaHasta"
+                    type="date"
+                    onchange="mostrarReporte()"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Propietario:
+                </label>
+
+                <select
+                    id="propietarioReporte"
+                    onchange="mostrarReporte()"
+                >
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="Salvador Urincho Amarillo">
+                        Salvador Angel Urincho "Amarillo"
+                    </option>
+
+                    <option value="Salvador Pedro Verde">
+                        Salvador Pedro Angel "Verde"
+                    </option>
+
+                    <option value="Jesús Gómez Blanco">
+                        Jesús Gómez "Blanco"
+                    </option>
+
+                    <option value="Sebastian Blanco">
+                        Sebastián "Blanco"
+                    </option>
+
+                    <option value="Sandra Blanco">
+                        Sandra "Blanco"
+                    </option>
+
+                    <option value="Sophía Naranja">
+                        Sophía "Naranja"
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Producto:
+                </label>
+
+                <input
+                    id="productoReporte"
+                    type="text"
+                    placeholder="Buscar producto..."
+                    onkeyup="mostrarReporte()"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Forma de pago:
+                </label>
+
+                <select
+                    id="pagoReporte"
+                    onchange="mostrarReporte()"
+                >
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                    <option value="Efectivo">
+                        💵 Efectivo
+                    </option>
+
+                    <option value="Tarjeta">
+                        💳 Tarjeta
+                    </option>
+
+                    <option value="Pendiente">
+                        ⏳ Pendientes
+                    </option>
+
+                </select>
+
+            </div>
 
         </div>
 
 
-        <div>
-
-            Cantidad vendida
-
-            <strong id="totalProductosVendidos">
-                0
-            </strong>
-
-        </div>
+        <br>
 
 
-        <div>
-
-            Total vendido
-
-            <strong>
-                $<span id="dineroVendido">
-                    0.00
-                </span>
-            </strong>
-
-        </div>
+        <button
+            class="btn-reporte"
+            onclick="mostrarReporte()"
+        >
+            🔍 Buscar
+        </button>
 
 
-        <div>
-
-            Efectivo
-
-            <strong>
-                $<span id="totalEfectivo">
-                    0.00
-                </span>
-            </strong>
-
-        </div>
+        <button
+            class="btn-limpiar"
+            onclick="limpiarFiltros()"
+        >
+            Limpiar
+        </button>
 
 
-        <div>
+        <div class="resumen">
 
-            Tarjeta
+            <div>
+                Ventas
+                <strong id="totalVentas">0</strong>
+            </div>
 
-            <strong>
-                $<span id="totalTarjeta">
-                    0.00
-                </span>
-            </strong>
+            <div>
+                Cantidad vendida
+                <strong id="totalProductosVendidos">0</strong>
+            </div>
 
-        </div>
+            <div>
+                Total vendido
+                <strong>
+                    $<span id="dineroVendido">0.00</span>
+                </strong>
+            </div>
 
-    </div>
+            <div>
+                Efectivo
+                <strong>
+                    $<span id="totalEfectivo">0.00</span>
+                </strong>
+            </div>
 
-
-
-    <!-- RESUMEN PAGOS -->
-
-    <div class="resumen-pagos">
-
-        <div class="pago-card efectivo">
-
-            💵 Efectivo
-
-            <strong>
-                $<span id="efectivoDetalle">
-                    0.00
-                </span>
-            </strong>
+            <div>
+                Tarjeta
+                <strong>
+                    $<span id="totalTarjeta">0.00</span>
+                </strong>
+            </div>
 
         </div>
 
 
-        <div class="pago-card tarjeta">
+        <div class="resumen-pagos">
 
-            💳 Tarjeta
+            <div class="pago-card efectivo">
+                💵 Efectivo
+                <strong>
+                    $<span id="efectivoDetalle">0.00</span>
+                </strong>
+            </div>
 
-            <strong>
-                $<span id="tarjetaDetalle">
-                    0.00
-                </span>
-            </strong>
+            <div class="pago-card tarjeta">
+                💳 Tarjeta
+                <strong>
+                    $<span id="tarjetaDetalle">0.00</span>
+                </strong>
+            </div>
 
         </div>
 
-    </div>
 
+        <h3>
+            Productos vendidos
+        </h3>
 
 
-    <h3>
-        Productos vendidos
-    </h3>
+        <div class="table-container">
 
+            <table>
 
-    <div class="table-container">
+                <thead>
 
-        <table>
+                    <tr>
 
-            <thead>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Propietario</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Descuento</th>
+                        <th>Pago</th>
+                        <th>Estado</th>
+                        <th>Total</th>
 
-                <tr>
+                    </tr>
 
-                    <th>
-                        Fecha
-                    </th>
+                </thead>
 
-                    <th>
-                        Cliente
-                    </th>
 
-                    <th>
-                        Propietario
-                    </th>
+                <tbody id="reporteVentas"></tbody>
 
-                    <th>
-                        Producto
-                    </th>
+            </table>
 
-                    <th>
-                        Cantidad
-                    </th>
+        </div>
 
-                    <th>
-                        Precio
-                    </th>
 
-                    <th>
-                        Descuento
-                    </th>
+        <h3>
+            Resumen por propietario
+        </h3>
 
-                    <th>
-                        Pago
-                    </th>
 
-                    <th>
-                        Estado
-                    </th>
+        <div class="table-container">
 
-                    <th>
-                        Total
-                    </th>
+            <table>
 
-                </tr>
+                <thead>
 
-            </thead>
+                    <tr>
 
+                        <th>Propietario</th>
+                        <th>Cantidad</th>
+                        <th>Efectivo</th>
+                        <th>Tarjeta</th>
+                        <th>Pendiente</th>
+                        <th>Total</th>
 
-            <tbody id="reporteVentas"></tbody>
+                    </tr>
 
-        </table>
+                </thead>
 
-    </div>
 
+                <tbody id="resumenPropietarios"></tbody>
 
+            </table>
 
-    <h3>
-        Resumen por propietario
-    </h3>
+        </div>
 
 
-    <div class="table-container">
+        <h3>
+            Resumen por producto
+        </h3>
 
-        <table>
 
-            <thead>
+        <div class="table-container">
 
-                <tr>
+            <table>
 
-                    <th>
-                        Propietario
-                    </th>
+                <thead>
 
-                    <th>
-                        Cantidad
-                    </th>
+                    <tr>
 
-                    <th>
-                        Efectivo
-                    </th>
+                        <th>Propietario</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Efectivo</th>
+                        <th>Tarjeta</th>
+                        <th>Pendiente</th>
+                        <th>Total</th>
 
-                    <th>
-                        Tarjeta
-                    </th>
+                    </tr>
 
-                    <th>
-                        Pendiente
-                    </th>
+                </thead>
 
-                    <th>
-                        Total
-                    </th>
 
-                </tr>
+                <tbody id="resumenProductos"></tbody>
 
-            </thead>
+            </table>
 
+        </div>
 
-            <tbody id="resumenPropietarios"></tbody>
 
-        </table>
+        <!-- CERRAR -->
 
-    </div>
-
-
-
-    <h3>
-        Resumen por producto
-    </h3>
-
-
-    <div class="table-container">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Propietario
-                    </th>
-
-                    <th>
-                        Producto
-                    </th>
-
-                    <th>
-                        Cantidad
-                    </th>
-
-                    <th>
-                        Efectivo
-                    </th>
-
-                    <th>
-                        Tarjeta
-                    </th>
-
-                    <th>
-                        Pendiente
-                    </th>
-
-                    <th>
-                        Total
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody id="resumenProductos"></tbody>
-
-        </table>
+        <button
+            type="button"
+            class="btn-cerrar"
+            onclick="cerrarContenedor('contenedorReporte')"
+        >
+            ✖ Cerrar reporte
+        </button>
 
     </div>
 
