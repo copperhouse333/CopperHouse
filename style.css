@@ -1,0 +1,1213 @@
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 20px;
+    color: #222;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+h3 {
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   TARJETAS
+========================================================= */
+
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
+    min-width: 0;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   INPUTS Y SELECTS
+========================================================= */
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #222;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   SELECTOR DE PROPIETARIO
+========================================================= */
+
+#propietario {
+    width: 100%;
+    min-width: 300px;
+    height: 50px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+
+    border: 1px solid #aaa;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #222;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SELECTOR DE ESTADO DE PAGO
+========================================================= */
+
+#estadoPago {
+    width: 100%;
+    min-width: 300px;
+    height: 50px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+
+    border: 1px solid #aaa;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #222;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   SELECTOR DE FORMA DE PAGO
+========================================================= */
+
+#formaPago {
+    width: 100%;
+    min-width: 300px;
+    height: 50px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+
+    border: 1px solid #aaa;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #222;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
+button {
+    padding: 8px 12px;
+    margin: 2px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.1s ease;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   BOTONES ESPECÍFICOS
+========================================================= */
+
+.btn-guardar {
+    background: #198754;
+    color: white;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+}
+
+.btn-agregar {
+    background: #007bff;
+    color: white;
+}
+
+.btn-editar {
+    background: #ffc107;
+    color: #000;
+}
+
+.btn-eliminar {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-finalizar {
+    background: #0d6efd;
+    color: white;
+    width: 100%;
+    font-size: 18px;
+    padding: 13px;
+    margin-top: 15px;
+}
+
+.btn-reporte {
+    background: #6f42c1;
+    color: white;
+}
+
+.btn-limpiar {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-pagar {
+    background: #198754;
+    color: white;
+    min-width: 100px;
+    white-space: nowrap;
+}
+
+.btn-ver {
+    background: #0d6efd;
+    color: white;
+}
+
+
+/* =========================================================
+   TABLAS
+========================================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: #ffffff;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background: #343a40;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background: #fafafa;
+}
+
+tr:hover {
+    background: #f1f1f1;
+}
+
+
+/* =========================================================
+   CONTENEDOR RESPONSIVO PARA TABLAS
+========================================================= */
+
+.table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   TABLA DE PRODUCTOS
+========================================================= */
+
+#listaProductos {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLA DE CLIENTES PENDIENTES
+========================================================= */
+
+#listaPendientes {
+    white-space: nowrap;
+}
+
+#listaPendientes td:last-child {
+    min-width: 130px;
+    width: 130px;
+    white-space: nowrap;
+}
+
+#listaPendientes .btn-pagar {
+    display: inline-block;
+    min-width: 105px;
+    padding: 9px 12px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TABLA DE REPORTE
+========================================================= */
+
+#reporteVentas {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.total {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    margin: 20px 0;
+}
+
+
+/* =========================================================
+   ESTADO FIREBASE
+========================================================= */
+
+.estado {
+    text-align: center;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #ddd;
+}
+
+.estado.ok {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.estado.error {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.filtros > div {
+    min-width: 0;
+}
+
+.filtros input,
+.filtros select {
+    width: 100%;
+    min-width: 0;
+}
+
+
+/* =========================================================
+   RESUMEN
+========================================================= */
+
+.resumen {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.resumen > div {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 0;
+}
+
+.resumen strong {
+    display: block;
+    font-size: 22px;
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   FORMA DE PAGO
+========================================================= */
+
+.forma-pago {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.forma-pago label {
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   RESUMEN DE PAGOS
+========================================================= */
+
+.resumen-pagos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.pago-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.pago-card strong {
+    display: block;
+    font-size: 25px;
+    margin-top: 10px;
+}
+
+.efectivo {
+    background: #d1e7dd;
+}
+
+.tarjeta {
+    background: #cfe2ff;
+}
+
+
+/* =========================================================
+   ESTADOS DE PAGO
+========================================================= */
+
+.pendiente {
+    background: #fff3cd;
+    color: #664d03;
+}
+
+.pagado {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+
+/* =========================================================
+   CLIENTES PENDIENTES
+========================================================= */
+
+.cliente-pendiente {
+    background: #fff3cd;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+.cliente-input {
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-pagado {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.badge-no-pagado {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* =========================================================
+   DESCUENTO
+========================================================= */
+
+.descuento-input {
+    width: 100px;
+    max-width: 100%;
+    display: inline-block;
+}
+
+
+/* =========================================================
+   COLORES DE PROPIETARIOS
+========================================================= */
+
+#propietario option.c-green {
+    color: green;
+}
+
+#propietario option.c-red {
+    color: red;
+}
+
+#propietario option.c-blue {
+    color: blue;
+}
+
+#propietario option.c-orange {
+    color: orange;
+}
+
+#propietario option.c-purple {
+    color: purple;
+}
+
+#propietario option.c-yellow {
+    color: #c49a00;
+}
+
+#propietario option.c-gray {
+    color: gray;
+}
+
+
+/* =========================================================
+   PANTALLAS GRANDES
+========================================================= */
+
+@media (min-width: 901px) {
+
+    #propietario,
+    #estadoPago,
+    #formaPago {
+        min-width: 350px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .filtros {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resumen {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .card {
+        padding: 15px;
+        width: 100%;
+    }
+
+    .filtros {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .resumen-pagos {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* -----------------------------------------
+       SELECTORES
+    ----------------------------------------- */
+
+    #propietario,
+    #estadoPago,
+    #formaPago {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        height: 50px;
+        font-size: 16px;
+    }
+
+
+    /* -----------------------------------------
+       TABLAS
+    ----------------------------------------- */
+
+    .table-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .table-container table {
+        width: max-content;
+        min-width: 900px;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th,
+    td {
+        padding: 6px;
+    }
+
+
+    /* -----------------------------------------
+       BOTÓN PAGAR
+    ----------------------------------------- */
+
+    #listaPendientes td:last-child {
+        min-width: 130px;
+        width: 130px;
+    }
+
+    #listaPendientes .btn-pagar {
+        min-width: 105px;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+
+    /* -----------------------------------------
+       BOTONES
+    ----------------------------------------- */
+
+    button {
+        font-size: 13px;
+        padding: 7px 10px;
+    }
+
+    .total {
+        font-size: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 400px) {
+
+    body {
+        margin: 5px;
+        width: calc(100% - 10px);
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h3 {
+        font-size: 17px;
+    }
+
+    table {
+        font-size: 11px;
+    }
+
+    th,
+    td {
+        padding: 5px;
+    }
+
+    #propietario,
+    #estadoPago,
+    #formaPago {
+        height: 48px;
+        font-size: 15px;
+    }
+
+    #listaPendientes .btn-pagar {
+        min-width: 100px;
+        font-size: 12px;
+        padding: 7px 8px;
+    }
+
+}
+
+
+
+/* =====================================================
+   FOTOS DE PRODUCTOS
+===================================================== */
+
+.foto-producto{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid #ddd;
+    display:block;
+    margin:auto;
+}
+
+
+.foto-carrito{
+    width:55px;
+    height:55px;
+    object-fit:cover;
+    border-radius:8px;
+    border:1px solid #ddd;
+    display:block;
+    margin:auto;
+}
+
+
+.foto-preview{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #ccc;
+    display:block;
+    margin:10px auto;
+}
+
+
+.foto-preview-container{
+    text-align:center;
+    margin:10px 0;
+}
+
+
+.btn-quitar-foto{
+    padding:8px 12px;
+    border:none;
+    border-radius:7px;
+    cursor:pointer;
+    background:#dc3545;
+    color:white;
+}
+
+
+.btn-quitar-foto:hover{
+    opacity:.85;
+}
+
+
+.sin-foto{
+    width:55px;
+    height:55px;
+    border-radius:8px;
+    background:#f1f1f1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-size:24px;
+}
+
+
+.cantidad-input{
+    width:65px;
+    min-width:65px;
+}
+
+
+.descuento-input{
+    width:90px;
+    min-width:90px;
+}
+
+
+
+
+/* =====================================================
+   BOTONES GENERALES
+===================================================== */
+
+button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin: 4px;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* =====================================================
+   BOTONES PARA ABRIR CONTENEDORES
+===================================================== */
+
+.btn-abrir {
+
+    display: block;
+
+    width: 100%;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 14px 18px;
+
+    font-size: 17px;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+
+}
+
+.btn-abrir:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =====================================================
+   BOTONES PARA CERRAR CONTENEDORES
+===================================================== */
+
+.btn-cerrar {
+
+    display: block;
+
+    width: 100%;
+
+    background: #dc2626;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    margin-top: 20px;
+
+    border-radius: 8px;
+
+}
+
+.btn-cerrar:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* =====================================================
+   BOTÓN AGREGAR PRODUCTO
+===================================================== */
+
+.btn-mostrar-agregar {
+
+    width: 100%;
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 12px 18px;
+
+}
+
+.btn-mostrar-agregar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN CERRAR FORMULARIO
+===================================================== */
+
+.btn-cerrar-formulario {
+
+    background: #6b7280;
+
+    color: white;
+
+}
+
+.btn-cerrar-formulario:hover {
+
+    background: #4b5563;
+
+}
+
+
+/* =====================================================
+   BOTÓN GUARDAR
+===================================================== */
+
+.btn-guardar {
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 12px 20px;
+
+}
+
+.btn-guardar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN FINALIZAR VENTA
+===================================================== */
+
+.btn-finalizar {
+
+    width: 100%;
+
+    background: #7c3aed;
+
+    color: white;
+
+    padding: 14px 20px;
+
+    font-size: 17px;
+
+    margin-top: 15px;
+
+}
+
+.btn-finalizar:hover {
+
+    background: #6d28d9;
+
+}
+
+
+/* =====================================================
+   BOTÓN AGREGAR AL CARRITO
+===================================================== */
+
+.btn-agregar {
+
+    background: #2563eb;
+
+    color: white;
+
+}
+
+.btn-agregar:hover {
+
+    background: #1d4ed8;
+
+}
+
+
+/* =====================================================
+   BOTÓN EDITAR
+===================================================== */
+
+.btn-editar {
+
+    background: #f59e0b;
+
+    color: white;
+
+}
+
+.btn-editar:hover {
+
+    background: #d97706;
+
+}
+
+
+/* =====================================================
+   BOTÓN ELIMINAR
+===================================================== */
+
+.btn-eliminar {
+
+    background: #dc2626;
+
+    color: white;
+
+}
+
+.btn-eliminar:hover {
+
+    background: #b91c1c;
+
+}
+
+
+/* =====================================================
+   BOTÓN MARCAR PAGADO
+===================================================== */
+
+.btn-pagar {
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 10px 14px;
+
+    white-space: nowrap;
+
+}
+
+.btn-pagar:hover {
+
+    background: #15803d;
+
+}
+
+
+/* =====================================================
+   BOTÓN REPORTE
+===================================================== */
+
+.btn-reporte {
+
+    background: #0891b2;
+
+    color: white;
+
+    padding: 11px 18px;
+
+}
+
+.btn-reporte:hover {
+
+    background: #0e7490;
+
+}
+
+
+/* =====================================================
+   BOTÓN LIMPIAR
+===================================================== */
+
+.btn-limpiar {
+
+    background: #6b7280;
+
+    color: white;
+
+    padding: 11px 18px;
+
+}
+
+.btn-limpiar:hover {
+
+    background: #4b5563;
+
+}
+
+
+/* =====================================================
+   CONTENEDORES OCULTABLES
+===================================================== */
+
+.contenedor-oculto {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 15px;
+
+}
+
+
+/* =====================================================
+   FORMULARIO DE PRODUCTO
+===================================================== */
+
+.formulario-producto {
+
+    padding: 15px;
+
+    margin-top: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+}
+
+
+/* =====================================================
+   BOTONES EN PANTALLAS PEQUEÑAS
+===================================================== */
+
+@media (max-width: 600px) {
+
+    button {
+
+        width: 100%;
+
+        margin: 5px 0;
+
+    }
+
+    .btn-abrir {
+
+        width: 100%;
+
+        font-size: 16px;
+
+    }
+
+    .btn-cerrar {
+
+        width: 100%;
+
+    }
+
+    .btn-pagar {
+
+        width: 100%;
+
+        white-space: normal;
+
+    }
+
+}
